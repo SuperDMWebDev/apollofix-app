@@ -2,6 +2,8 @@ package apollogix.apollofixapp.controller;
 
 import apollogix.apollofixapp.model.Product;
 import apollogix.apollofixapp.service.ProductService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,7 +30,10 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long productId) {
+    @ApiOperation(value="Get product by id", notes = "Get a product from db by id")
+    public ResponseEntity<Product> getProductById(
+            @ApiParam (value="Id of the product",required = true)
+            @PathVariable Long productId) {
         Product product = productService.getProductById(productId);
 
         if(product !=null) {
